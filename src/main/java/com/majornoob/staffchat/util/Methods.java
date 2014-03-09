@@ -9,7 +9,7 @@ import org.bukkit.entity.Player;
  */
 public class Methods {
     public static void sendMessage(Player to, String msg) {
-        to.sendMessage(ChatColor.translateAlternateColorCodes('^', Main.config.getString("message-format").replace("%playername", to.getName()).replace("%message", msg.substring(0, msg.length()))));
+        to.sendMessage(ChatColor.translateAlternateColorCodes('^', Main.config.getString("message-format").replace("%playername", to.getName()).replace("%message", msg)));
     }
 
     public static String formatMsg(String[] messageParts) {
