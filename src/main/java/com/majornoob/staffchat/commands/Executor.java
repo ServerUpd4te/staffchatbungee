@@ -32,7 +32,7 @@ public class Executor {
                 if (sender.hasPermission("staffchat.send")) {
                     for (Player p : Bukkit.getOnlinePlayers()) {
                         if (p.hasPermission("staffchat.receive")) {
-                            Methods.sendMessage(p, Methods.formatMsg(args));
+                            Methods.sendMessage(sender, p, Methods.formatMsg(args));
                         }
                     }
                 }

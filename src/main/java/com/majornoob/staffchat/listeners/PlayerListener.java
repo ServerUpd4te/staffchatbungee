@@ -21,10 +21,11 @@ public class PlayerListener implements Listener {
 
     @EventHandler(priority = EventPriority.LOW, ignoreCancelled = false)
     public void onPlayerChat(AsyncPlayerChatEvent event) {
-        if (this.plugin.toggledChatters.contains(event.getPlayer().getName()) && event.getPlayer().hasPermission("staffchat.send")) {
+        if ((this.plugin.toggledChatters.contains(event.getPlayer().getName()) || event.getMessage().startsWith("!")) && event.getPlayer().hasPermission("staffchat.send")) {
             for (Player p : Bukkit.getOnlinePlayers()) {
                 if (p.hasPermission("staffchat.receive")) {
-                    Methods.sendMessage(p, event.getMessage());
+                    String msg = event.getMessage().startsWith("!") ? event.getMessage().substring(1, event.getMessage().length()) : event.getMessage();
+                    Methods.sendMessage(event.getPlayer(), p, msg);
                 }
             }
             event.setCancelled(true);
