@@ -1,10 +1,7 @@
-# If you want a prefix, you must put it BEFORE "%playername.
-# To add color to the message, you must use the '^' character
-# followed by the color code: so "^c" is red (no quotes). Given
-# these instructions, you can fully change how the staff chat is
-# shown. The plugin will handle the rest. Good luck, and report
-# any bugs or questions to the request thread or Jake6177's
-# PM.
-
+# The message is 100% editable. Just modify the below.
+# The only constraint to this is that it must be encased in quotations.
+# The color symbol is the '^' character (with no quotations on it.)
+# Format it how you see fit, and the plugin will handle the rest.
+# Found a bug? Reply to the request thread or PM Jake6177.
 
 message-format: "^6[sc]^d %playername: ^c%message"
