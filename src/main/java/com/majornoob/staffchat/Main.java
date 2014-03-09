@@ -1,7 +1,7 @@
 package com.majornoob.staffchat;
 
-import com.majornoob.staffchat.com.majornoob.staffchat.commands.Executor;
-import com.majornoob.staffchat.com.majornoob.staffchat.listeners.PlayerListener;
+import com.majornoob.staffchat.commands.Executor;
+import com.majornoob.staffchat.listeners.PlayerListener;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;

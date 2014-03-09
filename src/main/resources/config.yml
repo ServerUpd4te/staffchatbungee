@@ -1,2 +1,10 @@
-prefix: "^6Staff Chat:"
-message-color: "^c"
+# If you want a prefix, you must put it BEFORE "%playername.
+# To add color to the message, you must use the '^' character
+# followed by the color code: so "^c" is red (no quotes). Given
+# these instructions, you can fully change how the staff chat is
+# shown. The plugin will handle the rest. Good luck, and report
+# any bugs or questions to the request thread or Jake6177's
+# PM.
+
+
+message-format: "^6[sc]^d %playername: ^c%message"

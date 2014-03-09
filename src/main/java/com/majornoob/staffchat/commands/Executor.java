@@ -1,8 +1,8 @@
-package com.majornoob.staffchat.com.majornoob.staffchat.commands;
+package com.majornoob.staffchat.commands;
 
 import com.majornoob.staffchat.Main;
+import com.majornoob.staffchat.util.Methods;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.entity.Player;
 
@@ -32,12 +32,7 @@ public class Executor {
                 if (sender.hasPermission("staffchat.send")) {
                     for (Player p : Bukkit.getOnlinePlayers()) {
                         if (p.hasPermission("staffchat.receive")) {
-                            String msg = "";
-                            for (int i = 0; i < args.length; i++) {
-                                msg += args[i] + " ";
-                            }
-                            msg = msg.substring(0,msg.length()-1);
-                            p.sendMessage(ChatColor.translateAlternateColorCodes('^', Main.config.getString("prefix") + " " + Main.config.getString("message-color") + msg));
+                            Methods.sendMessage(p, Methods.formatMsg(args));
                         }
                     }
                 }

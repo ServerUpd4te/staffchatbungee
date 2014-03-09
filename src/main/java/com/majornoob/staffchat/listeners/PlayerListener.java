@@ -1,8 +1,8 @@
-package com.majornoob.staffchat.com.majornoob.staffchat.listeners;
+package com.majornoob.staffchat.listeners;
 
 import com.majornoob.staffchat.Main;
+import com.majornoob.staffchat.util.Methods;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -24,7 +24,7 @@ public class PlayerListener implements Listener {
         if (this.plugin.toggledChatters.contains(event.getPlayer().getName()) && event.getPlayer().hasPermission("staffchat.send")) {
             for (Player p : Bukkit.getOnlinePlayers()) {
                 if (p.hasPermission("staffchat.receive")) {
-                    p.sendMessage(ChatColor.translateAlternateColorCodes('^', Main.config.getString("prefix") + " " + Main.config.getString("message-color") + event.getMessage()));
+                    Methods.sendMessage(p, event.getMessage());
                 }
             }
             event.setCancelled(true);
