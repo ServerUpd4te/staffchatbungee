@@ -1,50 +1,27 @@
 package com.majornoob.staffchat;
 
-import com.majornoob.staffchat.commands.Executor;
+import com.majornoob.staffchat.commands.Sc;
 import com.majornoob.staffchat.listeners.PlayerListener;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.Player;
-import org.bukkit.plugin.java.JavaPlugin;
+import com.majornoob.staffchat.util.Configuration;
+import net.md_5.bungee.api.plugin.Plugin;
 
 import java.util.ArrayList;
 
 /**
  * Created by Jake on 3/8/14.
  */
-public class Main extends JavaPlugin {
-    public final ArrayList<String> toggledChatters = new ArrayList<String>();
-    public static FileConfiguration config;
-    private static Main plugin;
+public class Main extends Plugin {
+    public final ArrayList<String> toggledChatters = new ArrayList<>();
+    public static Configuration config = null;
 
     @Override
     public void onEnable() {
-        plugin = this;
-        prepare();
-        loadConfig();
-        getServer().getPluginManager().registerEvents(new PlayerListener(this), this);
+        this.prepareConfiguration();
+        getProxy().getPluginManager().registerCommand(this, new Sc(this));
+        getProxy().getPluginManager().registerListener(this, new PlayerListener(this));
     }
 
-    @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (sender instanceof Player) {
-            return new Executor(this).execute((Player) sender, command, args);
-        } else {
-            sender.sendMessage("This command can only be run by players.");
-        }
-        return true;
-    }
-
-    public void prepare() {
-        getDataFolder().mkdir();
-        getDataFolder().setExecutable(true);
-        getDataFolder().setWritable(true);
-        getDataFolder().setReadable(true);
-    }
-
-    public void loadConfig() {
-        saveDefaultConfig();
-        config = getConfig();
+    private void prepareConfiguration() {
+        config = new Configuration(this);
     }
 }

@@ -1,33 +1,6 @@
 name: ${name}
 description: ${desc}
 version: ${version}
-database: false
 author: Jake6177, OraBrush
 
 main: com.majornoob.staffchat.Main
-
-commands:
-    sc:
-        description: Toggle or send a message to the staff chat
-        usage: /sc [args]
-        permission: staffchat.toggle
-        permission-message: Sorry, you don't have permission to use StaffChat.
-permissions:
-    staffchat.*:
-        children:
-            staffchat.toggle: true
-            staffchat.send: true
-            staffchat.receive: true
-    staffchat.sendandreceiveonly:
-        children:
-            staffchat.send: true
-            staffchat.receive: true
-    staffchat.receiveonly:
-        children:
-            staffchat.receive: true
-    staffchat.toggle:
-        description: Toggle the staff chat
-    staffchat.send:
-        description: Send a message to the staff chat
-    staffchat.receive:
-        description: Receive messages from the staff chat

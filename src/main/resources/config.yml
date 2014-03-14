@@ -1,7 +1,0 @@
-# The message is 100% editable. Just modify the below.
-# The only constraint to this is that it must be encased in quotations.
-# The color symbol is the '^' character (with no quotations on it.)
-# Format it how you see fit, and the plugin will handle the rest.
-# Found a bug? Reply to the request thread or PM Jake6177.
-
-message-format: "^6[sc]^d %playername: ^c%message"
