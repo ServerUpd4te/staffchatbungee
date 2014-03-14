@@ -7,7 +7,9 @@ import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.config.ServerInfo;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -16,7 +18,13 @@ import java.util.Map;
  */
 public class Methods {
     public static void sendMessage(ProxiedPlayer sender, ProxiedPlayer to, String msg) {
-        to.sendMessage(new TextComponent(ChatColor.translateAlternateColorCodes('^', Main.config.messageFormat.replace("%playername", sender.getName()).replace("%servername", cap(sender.getServer().getInfo().getName().toLowerCase())).replace("%message", msg))));
+        to.sendMessage(
+                new TextComponent(ChatColor.translateAlternateColorCodes('^', Main.config.getString("format")
+                        .replace("%timestamp", new SimpleDateFormat(Main.config.getString("timestamp-format")).format(new Date()))
+                        .replace("%server", cap(sender.getServer().getInfo().getName().toLowerCase()))
+                        .replace("%user", sender.getName())
+                        .replace("%message", msg)))
+        );
     }
 
     public static String formatMsg(String[] messageParts) {
