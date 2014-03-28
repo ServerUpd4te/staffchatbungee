@@ -6,7 +6,7 @@
 
     <groupId>com.majornoob.staffchat</groupId>
     <artifactId>StaffChatBungee</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
     <name>Staff Chat Bungee</name>
     
     <properties>
