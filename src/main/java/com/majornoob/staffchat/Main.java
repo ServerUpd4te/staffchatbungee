@@ -35,7 +35,7 @@ public class Main extends Plugin {
     private Configuration loadConfiguration() {
         this.prepareBackend();
 
-        FileManager.copy(getResourceAsStream("conf.yml"), new File(getDataFolder(), "conf.yml"));
+        if (!new File(getDataFolder(), "conf.yml").exists()) FileManager.copy(getResourceAsStream("conf.yml"), new File(getDataFolder(), "conf.yml"));
         try {
             return ConfigurationProvider.getProvider(YamlConfiguration.class).load(new File(getDataFolder(), "conf.yml"));
         } catch (IOException e) {

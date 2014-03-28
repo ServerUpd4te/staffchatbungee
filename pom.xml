@@ -5,10 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.majornoob.staffchat</groupId>
-    <artifactId>StaffChat</artifactId>
-    <version>1.0.0</version>
-
-    <name>StaffChat</name>
+    <artifactId>StaffChatBungee</artifactId>
+    <version>1.0.1</version>
+    <name>Staff Chat Bungee</name>
     
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
