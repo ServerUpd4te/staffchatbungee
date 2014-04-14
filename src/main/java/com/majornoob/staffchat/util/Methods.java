@@ -19,7 +19,7 @@ import java.util.Map;
 public class Methods {
     public static void sendMessage(ProxiedPlayer sender, ProxiedPlayer to, String msg) {
         to.sendMessage(
-                new TextComponent(TextComponent.fromLegacyText(ChatColor.translateAlternateColorCodes('^', Main.config.getString("format")
+                new TextComponent(TextComponent.fromLegacyText(ChatColor.translateAlternateColorCodes('&', Main.config.getString("format")
                         .replace("%timestamp", new SimpleDateFormat(Main.config.getString("timestamp-format")).format(new Date()))
                         .replace("%server", cap(sender.getServer().getInfo().getName().toLowerCase()))
                         .replace("%user", sender.getName())
