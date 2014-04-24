@@ -25,8 +25,8 @@ public class Main extends Plugin {
         plugin = this;
         config = this.loadConfiguration();
         if (config == null) {
-            getLogger().severe("Failed to load configuration. Stopping proxy!");
-            getProxy().stop();
+            getLogger().info("Configuration could not be loaded. Stopping plugin.");
+            this.stop();
         }
         getProxy().getPluginManager().registerCommand(this, new Sc(this));
         getProxy().getPluginManager().registerListener(this, new PlayerListener(this));
@@ -39,8 +39,8 @@ public class Main extends Plugin {
         try {
             return ConfigurationProvider.getProvider(YamlConfiguration.class).load(new File(getDataFolder(), "conf.yml"));
         } catch (IOException e) {
-            getLogger().severe("Failed to load configuration. Stopping proxy!");
-            getProxy().stop();
+            getLogger().info("There was an I/O error during configuration loading. Stopping plugin.");
+            this.stop();
         }
         return null;
     }
@@ -52,6 +52,13 @@ public class Main extends Plugin {
             getDataFolder().setReadable(true);
             getDataFolder().setExecutable(true);
         }
+    }
+    
+    private void stop() {
+        getLogger().info("Plugin is stopping. It will no longer respond to events or commands.");
+        getProxy().getPluginManager().unregisterCommands(this);
+        getProxy().getPluginManager().unregisterListeners(this);
+        getLogger().info("Plugin stopped.");
     }
 
     public static Main getInstance() {
