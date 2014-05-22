@@ -10,10 +10,10 @@ import net.md_5.bungee.api.plugin.Command;
 /**
  * Created by Jake on 3/8/14.
  */
-public class Sc extends Command {
+public class ScCommand extends Command {
     private Main plugin;
 
-    public Sc(Main instance) {
+    public ScCommand(Main instance) {
         super("sc");
         this.plugin = instance;
     }
