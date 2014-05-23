@@ -26,20 +26,6 @@ public class Loader {
             if (!new File(instance.getDataFolder(), "conf.yml").exists()) {
                 FileUtils.copy(instance.getResourceAsStream("conf.yml"), new File(instance.getDataFolder(), "conf.yml"));
             }
-
-            try {
-
-                Main.setConfig(
-                        ConfigurationProvider.getProvider(YamlConfiguration.class)
-                                .load(new File(instance.getDataFolder(), "conf.yml"))
-                );
-
-            } catch (IOException e) {
-                instance.getLogger().info("There was an I/O error during configuration loading. Stopping plugin.");
-
-                instance.getProxy().getPluginManager().unregisterCommands(instance);
-                instance.getProxy().getPluginManager().unregisterListeners(instance);
-            }
         }
 
         instance.getLogger().info("Preparing commands...");
