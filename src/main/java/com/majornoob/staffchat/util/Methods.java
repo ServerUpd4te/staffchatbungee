@@ -31,21 +31,13 @@ public class Methods {
     }
 
     public static String formatMsg(String[] messageParts) {
-        String msg = "";
+        String msg = "Failed to construct message! (Plugin Error -> Please Report)";
         for (int i = 0; i < messageParts.length; i++) {
+            msg = "";
             msg += messageParts[i] + " ";
+            msg = msg.substring(0, msg.length()-1);
         }
         return msg;
-    }
-
-    public static List<ProxiedPlayer> getOnlinePlayers() {
-        List<ProxiedPlayer> temp = new ArrayList();
-        for (Map.Entry<String, ServerInfo> serverMap : ProxyServer.getInstance().getServers().entrySet()) {
-            for (ProxiedPlayer p : serverMap.getValue().getPlayers()) {
-                temp.add(p);
-            }
-        }
-        return temp;
     }
 
     private static String cap(String line) {

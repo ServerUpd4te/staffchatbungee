@@ -11,18 +11,12 @@ import net.md_5.bungee.event.EventHandler;
  * Created by Jake on 3/8/14.
  */
 public class PlayerListener implements Listener {
-    private Main plugin;
-
-    public PlayerListener(Main instance) {
-        this.plugin = instance;
-    }
-
     @EventHandler
     public void onPlayerChat(ChatEvent event) {
         if (!event.getMessage().startsWith("/") && event.getSender() instanceof ProxiedPlayer) {
             ProxiedPlayer p = (ProxiedPlayer) event.getSender();
-            if (p.hasPermission("staffchat.send") && (this.plugin.toggledChatters.contains(p.getName()) || event.getMessage().startsWith("!"))) {
-                for (ProxiedPlayer player : Methods.getOnlinePlayers()) {
+            if (p.hasPermission("staffchat.send") && (Main.instance.toggledChatters.contains(p.getUniqueId()) || event.getMessage().startsWith("!"))) {
+                for (ProxiedPlayer player : Main.instance.getProxy().getPlayers()) {
                     if (player.hasPermission("staffchat.receive")) {
                         Methods.sendMessage(p, player, (event.getMessage().startsWith("!")) ? event.getMessage().substring(1, event.getMessage().length()):event.getMessage());
                     }

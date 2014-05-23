@@ -43,7 +43,9 @@ public class Loader {
         }
 
         instance.getLogger().info("Preparing commands...");
-        instance.getProxy().getPluginManager().registerCommand(instance, new ScCommand(instance));
-        instance.getProxy().getPluginManager().registerListener(instance, new PlayerListener(instance));
+        instance.getProxy().getPluginManager().registerCommand(instance, new ScCommand());
+
+        instance.getLogger().info("Preparing events...");
+        instance.getProxy().getPluginManager().registerListener(instance, new PlayerListener());
     }
 }

@@ -5,12 +5,13 @@ import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.config.Configuration;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 /**
  * Created by Jake on 3/8/14.
  */
 public class Main extends Plugin {
-    public final ArrayList<String> toggledChatters = new ArrayList<>();
+    public final ArrayList<UUID> toggledChatters = new ArrayList<>();
     public static Main instance;
 
     private static Configuration config;
