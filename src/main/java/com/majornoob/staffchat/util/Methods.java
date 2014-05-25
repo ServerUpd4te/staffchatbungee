@@ -27,13 +27,11 @@ public class Methods {
     }
 
     public static String formatMsg(String[] messageParts) {
-        String msg = "Failed to construct message! (Plugin Error -> Please Report)";
-        for (int i = 0; i < messageParts.length; i++) {
-            msg = "";
-            msg += messageParts[i] + " ";
-            msg = msg.substring(0, msg.length()-1);
+        String msg = "";
+        for (String part : messageParts) {
+            msg += part + " ";
         }
-        return msg;
+        return msg.substring(0, msg.length());
     }
 
     private static String cap(String line) {
