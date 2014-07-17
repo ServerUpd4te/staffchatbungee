@@ -6,7 +6,7 @@
 
     <groupId>com.majornoob.staffchat</groupId>
     <artifactId>StaffChatBungee</artifactId>
-    <version>1.1.3</version>
+    <version>1.1.3-SNAPSHOT</version>
     <name>StaffChatBungee</name>
     
     <properties>
@@ -50,4 +50,17 @@
         <plugins>
         </plugins>
     </build>
+
+    <distributionManagement>
+        <repository>
+            <id>mainDeployment</id>
+            <name>Internal Release</name>
+            <url>http://repo.majornoob.com/content/repositories/releases</url>
+        </repository>
+        <snapshotRepository>
+            <id>mainDeployment</id>
+            <name>Internal Snapshot</name>
+            <url>http://repo.majornoob.com/content/repositories/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
 </project>
