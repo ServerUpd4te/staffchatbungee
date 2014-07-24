@@ -1,5 +1,0 @@
-# Maven .gitignore
-.idea/
-target/
-src/test/
-*.iml
