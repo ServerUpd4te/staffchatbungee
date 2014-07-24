@@ -1,4 +1,4 @@
 StaffChatBungee
 ===============
 
-This plugin provides a lightweight staff chat.
+This Bukkit plugin provides a lightweight staff chat.
