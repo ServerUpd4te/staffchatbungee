@@ -1,6 +1,6 @@
 name: ${name}
 description: ${desc}
 version: ${version}
-author: Jake6177, OraBrush
+author: JakeA
 
 main: com.majornoob.staffchat.Main
