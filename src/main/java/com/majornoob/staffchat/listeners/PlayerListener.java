@@ -15,17 +15,28 @@ import net.md_5.bungee.event.EventHandler;
  */
 public class PlayerListener implements Listener {
     @EventHandler
-    public void onPlayerChat(ChatEvent event) {
-        if (!event.getMessage().startsWith("/") && event.getSender() instanceof ProxiedPlayer) {
+    public void onExclamationChat(ChatEvent event) {
+        if (event.getSender() instanceof ProxiedPlayer && event.getMessage().startsWith("!") && Main.config.getBoolean("enable-exclamation-trigger")) {
             ProxiedPlayer sender = (ProxiedPlayer) event.getSender();
-            if (sender.hasPermission("staffchat.send") && (Main.instance.toggledChatters.contains(sender.getUniqueId()) || event.getMessage().startsWith("!"))) {
+            if (sender.hasPermission("staffchat.send")) {
                 for (ProxiedPlayer player : Main.instance.getProxy().getPlayers()) {
                     if (player.hasPermission("staffchat.receive")) {
-                        String message = (event.getMessage().startsWith("!")) ?
-                                event.getMessage().substring(1, event.getMessage().length()):
-                                event.getMessage();
+                        Methods.sendMessage(player, sender, event.getMessage().substring(1, event.getMessage().length()));
+                    }
+                }
+                event.setCancelled(true);
+            }
+        }
+    }
 
-                        Methods.sendMessage(player, sender, message);
+    @EventHandler
+    public void onRegularChat(ChatEvent event) {
+        if (event.getSender() instanceof ProxiedPlayer && (!event.getMessage().startsWith("/") && !event.getMessage().startsWith("!"))) {
+            ProxiedPlayer sender = (ProxiedPlayer) event.getSender();
+            if (sender.hasPermission("staffchat.send") && Main.instance.toggledChatters.contains(sender.getUniqueId())) {
+                for (ProxiedPlayer player : Main.instance.getProxy().getPlayers()) {
+                    if (player.hasPermission("staffchat.receive")) {
+                        Methods.sendMessage(player, sender, event.getMessage());
                     }
                 }
                 event.setCancelled(true);
