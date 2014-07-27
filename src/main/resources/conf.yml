@@ -1,22 +1,18 @@
 #
-# Configuration for Staff Chat Bungee 1.1.0 by Jake
+# Configuration for Staff Chat Bungee ${version} by Jake
 #
 
-# The only thing to configure is how you want the staff chat to display.
-# It's very straightforward. Simply edit he contents of the following quotations ("") and make the message look how you wish.
-# Omitting any "%" sections will not cause any errors, it will simply remove the specified item from the message, so feel free to modify the format
-# as you see fit. It's completely your decision. Have fun!
-
+# Simply edit the contents of the following quotations ("") and make the message look how you wish.
+# Omitting any "%" sections will not cause any errors, it will simply remove the specified item from
+# the message, so feel free to modify the format as you see fit. It's completely your decision.
 format: "&c[%timestamp] {Staff} [%server] %user : %message"
 
 # The below only applies if you opt to include a time-stamp in the message. You will need to reference: http://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html for
 # information on what to put here. The default should be fairly straightforward if you take a look at the above link.
-
 timestamp-format: "MM/dd/yy HH:mm:ss"
 
 ##############
 # Options
 ##############
-
 # This option enables the Staff Chat to be triggered by an exclamation point.
 enable-exclamation-trigger: true
