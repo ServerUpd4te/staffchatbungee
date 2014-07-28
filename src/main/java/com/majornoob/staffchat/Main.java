@@ -18,6 +18,7 @@ public class Main extends Plugin {
     public final ArrayList<UUID> toggledChatters = new ArrayList<>();
     public static Main instance;
     public static Configuration config = null;
+    public static Configuration language = null;
 
     @Override
     public void onEnable() {
@@ -26,6 +27,7 @@ public class Main extends Plugin {
 
         try {
             config = ConfigurationProvider.getProvider(YamlConfiguration.class).load(new File(instance.getDataFolder(), "conf.yml"));
+            language = ConfigurationProvider.getProvider(YamlConfiguration.class).load(new File(instance.getDataFolder(), "lang.yml"));
         } catch (IOException e) {
             e.printStackTrace();
             instance.getProxy().getPluginManager().unregisterCommands(instance);

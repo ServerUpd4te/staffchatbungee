@@ -16,3 +16,5 @@ timestamp-format: "MM/dd/yy HH:mm:ss"
 ##############
 # This option enables the Staff Chat to be triggered by an exclamation point.
 enable-exclamation-trigger: true
+# This option enables persisting presence in the Staff Chat. If not enabled, players are removed from it on logout.
+enable-persisting-presence: true

@@ -27,6 +27,10 @@ public class Loader {
             if (!new File(instance.getDataFolder(), "conf.yml").exists()) {
                 FileUtils.copy(instance.getResourceAsStream("conf.yml"), new File(instance.getDataFolder(), "conf.yml"));
             }
+
+            if (!new File(instance.getDataFolder(), "lang.yml").exists()) {
+                FileUtils.copy(instance.getResourceAsStream("lang.yml"), new File(instance.getDataFolder(), "lang.yml"));
+            }
         }
 
         instance.getLogger().info("Preparing commands...");

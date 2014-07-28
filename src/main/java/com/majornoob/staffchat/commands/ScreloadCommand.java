@@ -21,17 +21,19 @@ public class ScreloadCommand extends Command {
 
     @Override
     public void execute(CommandSender sender, String[] args) {
-        Configuration backup = Main.config;
+        Configuration backupConfig = Main.config;
+        Configuration backupLanguage = Main.language;
         Main.config = null;
+        Main.language = null;
+
         try {
             Main.config = ConfigurationProvider.getProvider(YamlConfiguration.class).load(new File(Main.instance.getDataFolder(), "conf.yml"));
-            sender.sendMessage(new TextComponent("You reloaded the Staff Chat configuration."));
-            Main.instance.getLogger().info("Configuration reloaded by " + sender.getName());
+            Main.language = ConfigurationProvider.getProvider(YamlConfiguration.class).load(new File(Main.instance.getDataFolder(), "lang.yml"));
+            sender.sendMessage(new TextComponent("[Staff Chat] Reloaded"));
         } catch (IOException ex) {
-            sender.sendMessage(new TextComponent("The configuration could not be reloaded."));
-            Main.instance.getLogger().warning("Failed to reload config, restoring...");
-            Main.config = backup;
-            Main.instance.getLogger().info("Restored previous configuration.");
+            sender.sendMessage(new TextComponent("[Staff Chat] Error reloading"));
+            Main.config = backupConfig;
+            Main.language = backupLanguage;
         }
     }
 }

@@ -18,7 +18,7 @@ public class ScCommand extends Command {
 
     public void execute(CommandSender sendr, String[] args) {
         if (!(sendr instanceof ProxiedPlayer)) {
-            sendr.sendMessage(TextComponent.fromLegacyText(ChatColor.translateAlternateColorCodes('&', "&cSorry, only players can join the staff chat.")));
+            sendr.sendMessage(TextComponent.fromLegacyText(ChatColor.translateAlternateColorCodes('&', "&cOnly players can join the staff chat!")));
             return;
         }
 
@@ -27,11 +27,11 @@ public class ScCommand extends Command {
         if (args.length == 0) {
             if (sender.hasPermission("staffchat.toggle")) {
                 if (Main.instance.toggledChatters.contains(sender.getUniqueId())) {
+                    sender.sendMessage(TextComponent.fromLegacyText(Main.language.getString("user-left-chat")));
                     Main.instance.toggledChatters.remove(sender.getUniqueId());
-                    sender.sendMessage(new TextComponent("You have left the staff chat. Type /staff again to re-join."));
                 } else {
+                    sender.sendMessage(TextComponent.fromLegacyText(Main.language.getString("user-entered-chat")));
                     Main.instance.toggledChatters.add(sender.getUniqueId());
-                    sender.sendMessage(new TextComponent("You have joined the staff chat. Type /staff again to leave."));
                 }
             }
         } else if (args.length > 0) {

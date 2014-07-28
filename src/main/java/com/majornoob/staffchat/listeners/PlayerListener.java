@@ -10,6 +10,8 @@ import net.md_5.bungee.api.event.PostLoginEvent;
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.event.EventHandler;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * Created by Jake on 3/8/14.
  */
@@ -46,10 +48,26 @@ public class PlayerListener implements Listener {
 
     @EventHandler
     public void onPlayerLogin(PostLoginEvent event) {
-        ProxiedPlayer p = event.getPlayer();
+        if (! Main.config.getBoolean("enable-persisting-presence")) return;
 
+        final ProxiedPlayer p = event.getPlayer();
         if (Main.instance.toggledChatters.contains(p.getUniqueId())) {
-            p.sendMessage(new TextComponent("[Staff Chat] You are currently in the Staff Chat!"));
+            Main.instance.getProxy().getScheduler().schedule(Main.instance, new Runnable() {
+                @Override
+                public void run() {
+                    p.sendMessage(TextComponent.fromLegacyText(Main.language.getString("user-logged-in-chat")));
+                }
+            }, 500L, TimeUnit.MILLISECONDS);
+        }
+    }
+
+    @EventHandler
+    public void onPlayerLogout(PlayerDisconnectEvent event) {
+        if (! Main.config.getBoolean("enable-persisting-presence")) return;
+
+        ProxiedPlayer p = event.getPlayer();
+        if (Main.instance.toggledChatters.contains(p)) {
+            Main.instance.toggledChatters.remove(p);
         }
     }
 }
