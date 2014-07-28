@@ -13,7 +13,7 @@ import net.md_5.bungee.api.plugin.Command;
  */
 public class ScCommand extends Command {
     public ScCommand() {
-        super("sc");
+        super("staff", null, "sc", "s");
     }
 
     public void execute(CommandSender sendr, String[] args) {
@@ -28,10 +28,10 @@ public class ScCommand extends Command {
             if (sender.hasPermission("staffchat.toggle")) {
                 if (Main.instance.toggledChatters.contains(sender.getUniqueId())) {
                     Main.instance.toggledChatters.remove(sender.getUniqueId());
-                    sender.sendMessage(new TextComponent("You have left the staff chat. Type /sc again to re-join."));
+                    sender.sendMessage(new TextComponent("You have left the staff chat. Type /staff again to re-join."));
                 } else {
                     Main.instance.toggledChatters.add(sender.getUniqueId());
-                    sender.sendMessage(new TextComponent("You have joined the staff chat. Type /sc again to leave."));
+                    sender.sendMessage(new TextComponent("You have joined the staff chat. Type /staff again to leave."));
                 }
             }
         } else if (args.length > 0) {
