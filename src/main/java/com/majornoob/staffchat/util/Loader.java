@@ -23,14 +23,14 @@ public class Loader {
             instance.getDataFolder().mkdir();
             instance.getDataFolder().setWritable(true);
             instance.getDataFolder().setReadable(true);
+        }
 
-            if (!new File(instance.getDataFolder(), "conf.yml").exists()) {
-                FileUtils.copy(instance.getResourceAsStream("conf.yml"), new File(instance.getDataFolder(), "conf.yml"));
-            }
+        if (!new File(instance.getDataFolder(), "conf.yml").exists()) {
+            FileUtils.copy(instance.getResourceAsStream("conf.yml"), new File(instance.getDataFolder(), "conf.yml"));
+        }
 
-            if (!new File(instance.getDataFolder(), "lang.yml").exists()) {
-                FileUtils.copy(instance.getResourceAsStream("lang.yml"), new File(instance.getDataFolder(), "lang.yml"));
-            }
+        if (!new File(instance.getDataFolder(), "lang.yml").exists()) {
+            FileUtils.copy(instance.getResourceAsStream("lang.yml"), new File(instance.getDataFolder(), "lang.yml"));
         }
 
         instance.getLogger().info("Preparing commands...");
