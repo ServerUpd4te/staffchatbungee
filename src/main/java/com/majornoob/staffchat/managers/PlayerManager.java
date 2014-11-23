@@ -9,7 +9,7 @@ import java.util.UUID;
  * Created by Jacob on 11/23/2014.
  */
 public class PlayerManager {
-    private static volatile LinkedList<UUID> players;
+    private static volatile LinkedList<UUID> players = new LinkedList<>();
 
     public static void addPlayer(ProxiedPlayer player) {
         addPlayer(player.getUniqueId());

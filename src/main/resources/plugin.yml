@@ -1,6 +1,6 @@
 name: ${name}
 description: ${desc}
 version: ${version}
-author: JakeA
+author: ${author}
 
 main: com.majornoob.staffchat.Main

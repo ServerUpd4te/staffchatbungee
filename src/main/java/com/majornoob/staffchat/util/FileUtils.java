@@ -10,9 +10,7 @@ public class FileUtils {
         try (InputStream input = from) {
             if (!to.exists()) {
                 boolean result = to.createNewFile();
-                if (!result) {
-                    throw new IOException("File extraction failed!");
-                }
+                if (!result) throw new IOException("File extraction failed!");
             }
             try (FileOutputStream output = new FileOutputStream(to)) {
                 byte[] b = new byte[8192];

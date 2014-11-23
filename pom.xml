@@ -6,14 +6,15 @@
 
     <groupId>com.majornoob.staffchat</groupId>
     <artifactId>StaffChatBungee</artifactId>
-    <version>1.1.7.1-SNAPSHOT</version>
+    <version>1.2.0</version>
     <name>StaffChatBungee</name>
     
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <name>${project.name}</name>
         <version>${project.version}</version>
-        <desc>This plugin provides a lightweight staff chat.</desc>
+        <desc>This plugin provides a lightweight, fully modular staff chat.</desc>
+        <author>Jacob Andersen</author>
         <maven.compiler.source>1.7</maven.compiler.source>
         <maven.compiler.target>1.7</maven.compiler.target>
     </properties>
@@ -27,15 +28,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>3.8.1</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>net.md-5</groupId>
             <artifactId>bungeecord-api</artifactId>
-            <version>1.7-SNAPSHOT</version>
+            <version>1.8-SNAPSHOT</version>
         </dependency>
     </dependencies>
     
@@ -50,17 +45,4 @@
         <plugins>
         </plugins>
     </build>
-
-    <distributionManagement>
-        <repository>
-            <id>mainDeployment</id>
-            <name>Internal Release</name>
-            <url>http://repo.majornoob.com/content/repositories/releases</url>
-        </repository>
-        <snapshotRepository>
-            <id>mainDeployment</id>
-            <name>Internal Snapshot</name>
-            <url>http://repo.majornoob.com/content/repositories/snapshots</url>
-        </snapshotRepository>
-    </distributionManagement>
 </project>

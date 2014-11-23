@@ -2,11 +2,8 @@ package com.majornoob.staffchat.listeners;
 
 import com.majornoob.staffchat.Main;
 import com.majornoob.staffchat.managers.PlayerManager;
-import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
-import net.md_5.bungee.api.event.ChatEvent;
-import net.md_5.bungee.api.event.PlayerDisconnectEvent;
-import net.md_5.bungee.api.event.PostLoginEvent;
+import net.md_5.bungee.api.event.*;
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.event.EventHandler;
 
@@ -26,16 +23,20 @@ public class PlayerListener implements Listener {
     public void onChat(ChatEvent event) {
         ProxiedPlayer sender;
         String trueMessage = event.getMessage();
-        // Test conditions; exit if needed.
+        if (trueMessage.startsWith("/")) return;
         if (!(event.getSender() instanceof ProxiedPlayer)) return;
             else sender = (ProxiedPlayer) event.getSender();
-        if (trueMessage.startsWith("/")) return;
-        if (trueMessage.startsWith("!") && this.instance.getConfig().getBoolean("enabled-exclamation-trigger")) {
-            trueMessage = trueMessage.substring(1, trueMessage.length());
-        } else return;
+        if (!PlayerManager.playerExists(sender) && !trueMessage.startsWith("!")) return;
+        if (trueMessage.startsWith("!")) {
+            if (this.instance.getConfig().getBoolean("enable-exclamation-trigger")) {
+                if (!(trueMessage.length() > 1)) return;
+                trueMessage = trueMessage.substring(1, trueMessage.length());
+            } else return;
+        }
         if (!sender.hasPermission("staffchat.send")) return;
+        event.setCancelled(true);
         for (ProxiedPlayer receiver : this.instance.getProxy().getPlayers()) {
-            if (!receiver.hasPermission("staffchat.receive")) return;
+            if (!receiver.hasPermission("staffchat.receive")) continue;
             this.instance.getMethods().sendMessage(receiver, sender, trueMessage);
         }
     }
@@ -48,7 +49,7 @@ public class PlayerListener implements Listener {
                 this.instance.getProxy().getScheduler().schedule(this.instance, new Runnable() {
                     @Override
                     public void run() {
-                        p.sendMessage(TextComponent.fromLegacyText(instance.getConfig().getString("user-logged-in-chat")));
+                        instance.getMethods().sendLM(p, "user-logged-in-chat");
                     }
                 }, 500L, TimeUnit.MILLISECONDS);
             }
@@ -57,37 +58,8 @@ public class PlayerListener implements Listener {
 
     @EventHandler
     public void onPlayerLogout(PlayerDisconnectEvent event) {
-        if (this.instance.getConfig().getBoolean("enable-persisting-presence")) {
+        if (!this.instance.getConfig().getBoolean("enable-persisting-presence")) {
             PlayerManager.removePlayer(event.getPlayer());
         }
     }
-
-
-    /*
-    public void onExclamationChat(ChatEvent event) {
-        if (event.getSender() instanceof ProxiedPlayer && event.getMessage().startsWith("!") && Main.config.getBoolean("enable-exclamation-trigger")) {
-            ProxiedPlayer sender = (ProxiedPlayer) event.getSender();
-            if (sender.hasPermission("staffchat.send")) {
-                for (ProxiedPlayer player : this.instance.getProxy().getPlayers()) {
-                    if (player.hasPermission("staffchat.receive")) {
-                        Methods.sendMessage(player, sender, event.getMessage().substring(1, event.getMessage().length()));
-                    }
-                }
-                event.setCancelled(true);
-            }
-        }
-    }
-    public void onRegularChat(ChatEvent event) {
-        if (event.getSender() instanceof ProxiedPlayer && (!event.getMessage().startsWith("/") && !event.getMessage().startsWith("!"))) {
-            ProxiedPlayer sender = (ProxiedPlayer) event.getSender();
-            if (sender.hasPermission("staffchat.send") && PlayerManager.playerExists(sender.getUniqueId())) {
-                for (ProxiedPlayer player : this.instance.getProxy().getPlayers()) {
-                    if (player.hasPermission("staffchat.receive")) {
-                        Methods.sendMessage(player, sender, event.getMessage());
-                    }
-                }
-                event.setCancelled(true);
-            }
-        }
-    }*/
 }

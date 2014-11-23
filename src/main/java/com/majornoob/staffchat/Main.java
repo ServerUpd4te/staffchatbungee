@@ -1,7 +1,6 @@
 package com.majornoob.staffchat;
 
-import com.majornoob.staffchat.commands.ScCommand;
-import com.majornoob.staffchat.commands.ScreloadCommand;
+import com.majornoob.staffchat.commands.MainCommand;
 import com.majornoob.staffchat.listeners.PlayerListener;
 import com.majornoob.staffchat.managers.PlayerManager;
 import com.majornoob.staffchat.util.FileUtils;
@@ -35,15 +34,6 @@ public class Main extends Plugin {
         if (!new File(getDataFolder(), "lang.yml").exists()) {
             FileUtils.copy(getResourceAsStream("lang.yml"), new File(getDataFolder(), "lang.yml"));
         }
-
-        getLogger().info("Preparing commands...");
-        getProxy().getPluginManager().registerCommand(this, new ScCommand(this));
-        getProxy().getPluginManager().registerCommand(this, new ScreloadCommand(this));
-
-        getLogger().info("Preparing events...");
-        getProxy().getPluginManager().registerListener(this, new PlayerListener(this));
-
-        getLogger().info("Loading configurations...");
         try {
             config = ConfigurationProvider.getProvider(YamlConfiguration.class).load(new File(getDataFolder(), "conf.yml"));
             language = ConfigurationProvider.getProvider(YamlConfiguration.class).load(new File(getDataFolder(), "lang.yml"));
@@ -52,7 +42,8 @@ public class Main extends Plugin {
             getProxy().getPluginManager().unregisterCommands(this);
             getProxy().getPluginManager().unregisterListeners(this);
         }
-
+        getProxy().getPluginManager().registerCommand(this, new MainCommand(this));
+        getProxy().getPluginManager().registerListener(this, new PlayerListener(this));
         methods = new Methods(this);
     }
 
@@ -61,18 +52,23 @@ public class Main extends Plugin {
         PlayerManager.erasePlayers();
     }
 
+    public void reregisterCommands() {
+        getProxy().getPluginManager().unregisterCommands(this);
+        getProxy().getPluginManager().registerCommand(this, new MainCommand(this));
+    }
+
     public Configuration getConfig() {
         return config;
     }
     public void setConfig(Configuration config) {
-        Main.config = config;
+        com.majornoob.staffchat.Main.config = config;
     }
 
     public Configuration getLanguage() {
         return language;
     }
     public void setLanguage(Configuration language) {
-        Main.language = language;
+        com.majornoob.staffchat.Main.language = language;
     }
 
     public Methods getMethods() {

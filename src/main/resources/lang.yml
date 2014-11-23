@@ -1,10 +1,12 @@
-# This file contains the messages Staff Chat Bungee will send to the end-user during operation. No more hard-coded messages, yay! :)
+# Edit all you wish
+
 # sys
-prefix: "[Staff Chat]"
+prefix: "&6[&7SC&6]&7"
 
 # plugin
 plugin-reloaded-msg: "The plugin has been reloaded."
-
+plugin-player-only: "Only players can use staff chat."
+plugin-doesnt-exist: "Unknown command. Type \"/help\" for help."
 # user
 user-entered-chat: "You have entered the staff chat."
 user-left-chat: "You have left the staff chat."
