@@ -15,8 +15,12 @@ import java.io.IOException;
  * Created by Jake on 7/16/2014.
  */
 public class ScreloadCommand extends Command {
-    public ScreloadCommand() {
+    private Main instance;
+
+    public ScreloadCommand(Main instance) {
         super("screload", "staffchat.admin");
+
+        this.instance = instance;
     }
 
     @Override
@@ -27,8 +31,8 @@ public class ScreloadCommand extends Command {
         Main.language = null;
 
         try {
-            Main.config = ConfigurationProvider.getProvider(YamlConfiguration.class).load(new File(Main.instance.getDataFolder(), "conf.yml"));
-            Main.language = ConfigurationProvider.getProvider(YamlConfiguration.class).load(new File(Main.instance.getDataFolder(), "lang.yml"));
+            Main.config = ConfigurationProvider.getProvider(YamlConfiguration.class).load(new File(this.instance.getDataFolder(), "conf.yml"));
+            Main.language = ConfigurationProvider.getProvider(YamlConfiguration.class).load(new File(this.instance.getDataFolder(), "lang.yml"));
             sender.sendMessage(new TextComponent("[Staff Chat] Reloaded"));
         } catch (IOException ex) {
             sender.sendMessage(new TextComponent("[Staff Chat] Error reloading"));

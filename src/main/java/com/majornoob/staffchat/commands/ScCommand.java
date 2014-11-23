@@ -12,8 +12,12 @@ import net.md_5.bungee.api.plugin.Command;
  * Created by Jake on 3/8/14.
  */
 public class ScCommand extends Command {
-    public ScCommand() {
+    private Main instance;
+
+    public ScCommand(Main instance) {
         super("staff", null, "sc", "s");
+
+        this.instance = instance;
     }
 
     public void execute(CommandSender sendr, String[] args) {
@@ -26,17 +30,17 @@ public class ScCommand extends Command {
 
         if (args.length == 0) {
             if (sender.hasPermission("staffchat.toggle")) {
-                if (Main.instance.toggledChatters.contains(sender.getUniqueId())) {
+                if (this.instance.toggledChatters.contains(sender.getUniqueId())) {
                     sender.sendMessage(TextComponent.fromLegacyText(Main.language.getString("user-left-chat")));
-                    Main.instance.toggledChatters.remove(sender.getUniqueId());
+                    this.instance.toggledChatters.remove(sender.getUniqueId());
                 } else {
                     sender.sendMessage(TextComponent.fromLegacyText(Main.language.getString("user-entered-chat")));
-                    Main.instance.toggledChatters.add(sender.getUniqueId());
+                    this.instance.toggledChatters.add(sender.getUniqueId());
                 }
             }
         } else if (args.length > 0) {
             if (sender.hasPermission("staffchat.send")) {
-                for (ProxiedPlayer player : Main.instance.getProxy().getPlayers()) {
+                for (ProxiedPlayer player : this.instance.getProxy().getPlayers()) {
                     if (player.hasPermission("staffchat.receive")) {
                         Methods.sendMessage(player, sender, Methods.formatMsg(args));
                     }

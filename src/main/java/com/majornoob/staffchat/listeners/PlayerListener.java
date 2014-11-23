@@ -16,12 +16,18 @@ import java.util.concurrent.TimeUnit;
  * Created by Jake on 3/8/14.
  */
 public class PlayerListener implements Listener {
+    private Main instance;
+
+    public PlayerListener(Main instance) {
+        this.instance = instance;
+    }
+
     @EventHandler
     public void onExclamationChat(ChatEvent event) {
         if (event.getSender() instanceof ProxiedPlayer && event.getMessage().startsWith("!") && Main.config.getBoolean("enable-exclamation-trigger")) {
             ProxiedPlayer sender = (ProxiedPlayer) event.getSender();
             if (sender.hasPermission("staffchat.send")) {
-                for (ProxiedPlayer player : Main.instance.getProxy().getPlayers()) {
+                for (ProxiedPlayer player : this.instance.getProxy().getPlayers()) {
                     if (player.hasPermission("staffchat.receive")) {
                         Methods.sendMessage(player, sender, event.getMessage().substring(1, event.getMessage().length()));
                     }
@@ -35,8 +41,8 @@ public class PlayerListener implements Listener {
     public void onRegularChat(ChatEvent event) {
         if (event.getSender() instanceof ProxiedPlayer && (!event.getMessage().startsWith("/") && !event.getMessage().startsWith("!"))) {
             ProxiedPlayer sender = (ProxiedPlayer) event.getSender();
-            if (sender.hasPermission("staffchat.send") && Main.instance.toggledChatters.contains(sender.getUniqueId())) {
-                for (ProxiedPlayer player : Main.instance.getProxy().getPlayers()) {
+            if (sender.hasPermission("staffchat.send") && this.instance.toggledChatters.contains(sender.getUniqueId())) {
+                for (ProxiedPlayer player : this.instance.getProxy().getPlayers()) {
                     if (player.hasPermission("staffchat.receive")) {
                         Methods.sendMessage(player, sender, event.getMessage());
                     }
@@ -51,8 +57,8 @@ public class PlayerListener implements Listener {
         if (! Main.config.getBoolean("enable-persisting-presence")) return;
 
         final ProxiedPlayer p = event.getPlayer();
-        if (Main.instance.toggledChatters.contains(p.getUniqueId())) {
-            Main.instance.getProxy().getScheduler().schedule(Main.instance, new Runnable() {
+        if (this.instance.toggledChatters.contains(p.getUniqueId())) {
+            this.instance.getProxy().getScheduler().schedule(this.instance, new Runnable() {
                 @Override
                 public void run() {
                     p.sendMessage(TextComponent.fromLegacyText(Main.language.getString("user-logged-in-chat")));
@@ -66,8 +72,8 @@ public class PlayerListener implements Listener {
         if (! Main.config.getBoolean("enable-persisting-presence")) return;
 
         ProxiedPlayer p = event.getPlayer();
-        if (Main.instance.toggledChatters.contains(p)) {
-            Main.instance.toggledChatters.remove(p);
+        if (this.instance.toggledChatters.contains(p)) {
+            this.instance.toggledChatters.remove(p);
         }
     }
 }

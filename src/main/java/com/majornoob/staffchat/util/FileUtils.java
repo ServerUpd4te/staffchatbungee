@@ -9,7 +9,6 @@ import java.io.*;
  */
 public class FileUtils {
     public static boolean copy(InputStream from, File to) {
-        Main.instance.getLogger().info("Copying default " + to.getName());
         try (InputStream input = from) {
             if (!to.exists()) {
                 boolean result = to.createNewFile();
