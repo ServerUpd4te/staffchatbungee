@@ -1,5 +1,11 @@
 # This file contains the messages Staff Chat Bungee will send to the end-user during operation. No more hard-coded messages, yay! :)
+# sys
+prefix: "[Staff Chat]"
 
+# plugin
+plugin-reloaded-msg: "The plugin has been reloaded."
+
+# user
 user-entered-chat: "You have entered the staff chat."
 user-left-chat: "You have left the staff chat."
 user-logged-in-chat: "You are in the staff chat."

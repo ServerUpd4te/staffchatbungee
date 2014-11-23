@@ -1,7 +1,5 @@
 package com.majornoob.staffchat.util;
 
-import com.majornoob.staffchat.Main;
-
 import java.io.*;
 
 /**

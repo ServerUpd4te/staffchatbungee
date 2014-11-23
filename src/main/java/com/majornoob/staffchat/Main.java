@@ -3,7 +3,9 @@ package com.majornoob.staffchat;
 import com.majornoob.staffchat.commands.ScCommand;
 import com.majornoob.staffchat.commands.ScreloadCommand;
 import com.majornoob.staffchat.listeners.PlayerListener;
+import com.majornoob.staffchat.managers.PlayerManager;
 import com.majornoob.staffchat.util.FileUtils;
+import com.majornoob.staffchat.util.Methods;
 import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.config.Configuration;
 import net.md_5.bungee.config.ConfigurationProvider;
@@ -11,16 +13,14 @@ import net.md_5.bungee.config.YamlConfiguration;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.UUID;
 
 /**
  * Created by Jake on 3/8/14.
  */
 public class Main extends Plugin {
-    public final ArrayList<UUID> toggledChatters = new ArrayList<>();
-    public static Configuration config = null;
-    public static Configuration language = null;
+    private static Configuration config = null;
+    private static Configuration language = null;
+    private Methods methods;
 
     @Override
     public void onEnable() {
@@ -52,5 +52,30 @@ public class Main extends Plugin {
             getProxy().getPluginManager().unregisterCommands(this);
             getProxy().getPluginManager().unregisterListeners(this);
         }
+
+        methods = new Methods(this);
+    }
+
+    @Override
+    public void onDisable() {
+        PlayerManager.erasePlayers();
+    }
+
+    public Configuration getConfig() {
+        return config;
+    }
+    public void setConfig(Configuration config) {
+        Main.config = config;
+    }
+
+    public Configuration getLanguage() {
+        return language;
+    }
+    public void setLanguage(Configuration language) {
+        Main.language = language;
+    }
+
+    public Methods getMethods() {
+        return methods;
     }
 }

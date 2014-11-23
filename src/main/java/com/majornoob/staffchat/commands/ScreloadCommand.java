@@ -2,7 +2,6 @@ package com.majornoob.staffchat.commands;
 
 import com.majornoob.staffchat.Main;
 import net.md_5.bungee.api.CommandSender;
-import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.plugin.Command;
 import net.md_5.bungee.config.Configuration;
 import net.md_5.bungee.config.ConfigurationProvider;
@@ -25,19 +24,17 @@ public class ScreloadCommand extends Command {
 
     @Override
     public void execute(CommandSender sender, String[] args) {
-        Configuration backupConfig = Main.config;
-        Configuration backupLanguage = Main.language;
-        Main.config = null;
-        Main.language = null;
+        Configuration config_lock = this.instance.getConfig();
+        this.instance.setConfig(null);
+        Configuration lang_lock = this.instance.getLanguage();
+        this.instance.setLanguage(null);
 
         try {
-            Main.config = ConfigurationProvider.getProvider(YamlConfiguration.class).load(new File(this.instance.getDataFolder(), "conf.yml"));
-            Main.language = ConfigurationProvider.getProvider(YamlConfiguration.class).load(new File(this.instance.getDataFolder(), "lang.yml"));
-            sender.sendMessage(new TextComponent("[Staff Chat] Reloaded"));
+            this.instance.setConfig(ConfigurationProvider.getProvider(YamlConfiguration.class).load(new File(this.instance.getDataFolder(), "conf.yml")));
+            this.instance.setLanguage(ConfigurationProvider.getProvider(YamlConfiguration.class).load(new File(this.instance.getDataFolder(), "lang.yml")));
         } catch (IOException ex) {
-            sender.sendMessage(new TextComponent("[Staff Chat] Error reloading"));
-            Main.config = backupConfig;
-            Main.language = backupLanguage;
+            this.instance.setConfig(config_lock);
+            this.instance.setLanguage(lang_lock);
         }
     }
 }

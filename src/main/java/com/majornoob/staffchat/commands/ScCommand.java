@@ -1,7 +1,7 @@
 package com.majornoob.staffchat.commands;
 
 import com.majornoob.staffchat.Main;
-import com.majornoob.staffchat.util.Methods;
+import com.majornoob.staffchat.managers.PlayerManager;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -30,19 +30,19 @@ public class ScCommand extends Command {
 
         if (args.length == 0) {
             if (sender.hasPermission("staffchat.toggle")) {
-                if (this.instance.toggledChatters.contains(sender.getUniqueId())) {
-                    sender.sendMessage(TextComponent.fromLegacyText(Main.language.getString("user-left-chat")));
-                    this.instance.toggledChatters.remove(sender.getUniqueId());
+                if (PlayerManager.getPlayers().contains(sender.getUniqueId())) {
+                    sender.sendMessage(TextComponent.fromLegacyText(this.instance.getLanguage().getString("user-left-chat")));
+                    PlayerManager.getPlayers().remove(sender.getUniqueId());
                 } else {
-                    sender.sendMessage(TextComponent.fromLegacyText(Main.language.getString("user-entered-chat")));
-                    this.instance.toggledChatters.add(sender.getUniqueId());
+                    sender.sendMessage(TextComponent.fromLegacyText(this.instance.getLanguage().getString("user-entered-chat")));
+                    PlayerManager.addPlayer(sender.getUniqueId());
                 }
             }
         } else if (args.length > 0) {
             if (sender.hasPermission("staffchat.send")) {
                 for (ProxiedPlayer player : this.instance.getProxy().getPlayers()) {
                     if (player.hasPermission("staffchat.receive")) {
-                        Methods.sendMessage(player, sender, Methods.formatMsg(args));
+                        this.instance.getMethods().sendMessage(player, sender, args);
                     }
                 }
             }

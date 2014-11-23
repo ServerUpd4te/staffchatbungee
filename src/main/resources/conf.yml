@@ -5,11 +5,7 @@
 # Simply edit the contents of the following quotations ("") and make the message look how you wish.
 # Omitting any "%" sections will not cause any errors, it will simply remove the specified item from
 # the message, so feel free to modify the format as you see fit. It's completely your decision.
-format: "&c[%timestamp] {Staff} [%server] %user : %message"
-
-# The below only applies if you opt to include a time-stamp in the message. You will need to reference: http://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html for
-# information on what to put here. The default should be fairly straightforward if you take a look at the above link.
-timestamp-format: "MM/dd/yy HH:mm:ss"
+format: "&c{Staff} [%server] %user : %message"
 
 ##############
 # Options
