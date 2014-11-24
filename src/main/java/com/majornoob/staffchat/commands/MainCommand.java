@@ -16,9 +16,7 @@ public class MainCommand extends Command {
         super(
                 instance.getConfig().getString("main-command"),
                 null,
-                instance.getConfig().getStringList("aliases").toArray(
-                        new String[instance.getConfig().getStringList("aliases").size()]
-                )
+                instance.getConfig().getStringList("aliases").toArray(new String[instance.getConfig().getStringList("aliases").size()])
         );
         this.instance = instance;
     }
