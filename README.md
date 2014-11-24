@@ -1,3 +1,3 @@
 StaffChatBungee
 ===============
-This Bungee plugin provides a lightweight staff chat.
+This Bungee plugin provides a lightweight, fully modular staff chat.
