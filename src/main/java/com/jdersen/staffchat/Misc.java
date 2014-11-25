@@ -1,7 +1,5 @@
-package com.majornoob.staffchat;
+package com.jdersen.staffchat;
 
-import com.majornoob.staffchat.commands.MainCommand;
-import com.majornoob.staffchat.managers.ConfigurationManager;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -26,7 +24,7 @@ public class Misc {
         String message = "";
         for (String part : parts) message += part + " ";
         message = message.substring(0, (message.length() - 1));
-        message = ConfigurationManager.getConf().getString("format")
+        message = ConfigManager.getConf().getString("format")
                 .replace("%server", sender.getServer().getInfo().getName())
                 .replace("%user", sender.getName())
                 .replace("%message", message);
@@ -34,12 +32,12 @@ public class Misc {
     }
 
     public void sendLM(CommandSender cs, String s, boolean strip) {
-        s = ConfigurationManager.getLang().getString("prefix") + " " + ConfigurationManager.getLang().getString(s);
+        s = ConfigManager.getLang().getString("prefix") + " " + ConfigManager.getLang().getString(s);
         cs.sendMessage(TextComponent.fromLegacyText((strip)?s:ChatColor.translateAlternateColorCodes('&', s)));
     }
 
     public void reloadPlugin(CommandSender sender) {
-        ConfigurationManager.loadIntoMemory(instance.getDataFolder());
+        ConfigManager.loadIntoMemory(instance.getDataFolder());
         instance.getProxy().getPluginManager().unregisterCommands(instance);
         instance.getProxy().getPluginManager().registerCommand(instance, new MainCommand(instance));
         this.sendLM(sender, "plugin-reloaded-msg", false);

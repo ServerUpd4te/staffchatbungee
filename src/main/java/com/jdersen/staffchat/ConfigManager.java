@@ -1,6 +1,6 @@
-package com.majornoob.staffchat.managers;
+package com.jdersen.staffchat;
 
-import com.majornoob.staffchat.Misc;
+import com.jdersen.staffchat.Misc;
 import net.md_5.bungee.config.Configuration;
 import net.md_5.bungee.config.ConfigurationProvider;
 import net.md_5.bungee.config.YamlConfiguration;
@@ -14,7 +14,7 @@ import java.io.IOException;
 /*
     Static handling of Configuration
  */
-public class ConfigurationManager {
+public class ConfigManager {
     private static Configuration conf = null;
     private static Configuration lang = null;
     public static Configuration getConf() {

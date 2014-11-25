@@ -1,4 +1,4 @@
-package com.majornoob.staffchat.managers;
+package com.jdersen.staffchat;
 
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 

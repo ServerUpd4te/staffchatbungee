@@ -1,8 +1,5 @@
-package com.majornoob.staffchat.commands;
+package com.jdersen.staffchat;
 
-import com.majornoob.staffchat.Main;
-import com.majornoob.staffchat.managers.ConfigurationManager;
-import com.majornoob.staffchat.managers.PlayerManager;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Command;
@@ -15,9 +12,9 @@ public class MainCommand extends Command {
 
     public MainCommand(Main instance) {
         super(
-                ConfigurationManager.getConf().getString("main-command"),
+                ConfigManager.getConf().getString("main-command"),
                 null,
-                ConfigurationManager.getConf().getStringList("aliases").toArray(new String[0])
+                ConfigManager.getConf().getStringList("aliases").toArray(new String[0])
         );
         this.instance = instance;
     }
