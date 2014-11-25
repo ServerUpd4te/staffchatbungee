@@ -24,26 +24,30 @@ public class Main extends Plugin {
     @Override
     public void onEnable() {
         if (! getDataFolder().exists()) {
-            getDataFolder().mkdir();
-            getDataFolder().setReadable(true);
-            getDataFolder().setWritable(true);
+            if (! getDataFolder().mkdir()) getLogger().severe("Could not created plugin folder!");
+            return;
         }
         if (! new File(getDataFolder(), "conf.yml").exists()) {
             FileUtils.copy(getResourceAsStream("conf.yml"), new File(getDataFolder(), "conf.yml"));
         }
-        if (!new File(getDataFolder(), "lang.yml").exists()) {
+        if (! new File(getDataFolder(), "lang.yml").exists()) {
             FileUtils.copy(getResourceAsStream("lang.yml"), new File(getDataFolder(), "lang.yml"));
         }
+
         try {
-            config = ConfigurationProvider.getProvider(YamlConfiguration.class).load(new File(getDataFolder(), "conf.yml"));
-            language = ConfigurationProvider.getProvider(YamlConfiguration.class).load(new File(getDataFolder(), "lang.yml"));
+            config = ConfigurationProvider.getProvider(YamlConfiguration.class).load(
+                    new File(getDataFolder(), "conf.yml"));
+            language = ConfigurationProvider.getProvider(YamlConfiguration.class).load(
+                    new File(getDataFolder(), "lang.yml"));
         } catch (IOException e) {
             e.printStackTrace();
             getProxy().getPluginManager().unregisterCommands(this);
             getProxy().getPluginManager().unregisterListeners(this);
         }
+
         getProxy().getPluginManager().registerCommand(this, new MainCommand(this));
         getProxy().getPluginManager().registerListener(this, new PlayerListener(this));
+
         methods = new Methods(this);
     }
 

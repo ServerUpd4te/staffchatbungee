@@ -14,7 +14,6 @@ import java.util.concurrent.TimeUnit;
  */
 public class PlayerListener implements Listener {
     private Main instance;
-
     public PlayerListener(Main instance) {
         this.instance = instance;
     }
@@ -23,29 +22,42 @@ public class PlayerListener implements Listener {
     public void onChat(ChatEvent event) {
         ProxiedPlayer sender;
         String trueMessage = event.getMessage();
-        if (trueMessage.startsWith("/")) return;
+        // If the message is not a command
+        if (trueMessage.startsWith("/")) {
+            return;
+        }
+        // and the sender is a ProxiedPlayer (player)
         if (!(event.getSender() instanceof ProxiedPlayer)) return;
-            else sender = (ProxiedPlayer) event.getSender();
+        else sender = (ProxiedPlayer) event.getSender();
+        // and the player is toggled or simply trying to send a message with "!"
         if (!PlayerManager.playerExists(sender) && !trueMessage.startsWith("!")) return;
-        if (trueMessage.startsWith("!")) {
+        else if (trueMessage.startsWith("!")) {
             if (this.instance.getConfig().getBoolean("enable-exclamation-trigger")) {
                 if (!(trueMessage.length() > 1)) return;
                 trueMessage = trueMessage.substring(1, trueMessage.length());
             } else return;
         }
+        // and the player has the proper permission
         if (!sender.hasPermission("staffchat.send")) return;
+        // then cancel the normal message and perform event
         event.setCancelled(true);
+        // for every person on the server
         for (ProxiedPlayer receiver : this.instance.getProxy().getPlayers()) {
+            // if they have the receive permission
             if (!receiver.hasPermission("staffchat.receive")) continue;
+            // send a message
             this.instance.getMethods().sendMessage(receiver, sender, trueMessage);
         }
     }
 
     @EventHandler
     public void onPlayerLogin(PostLoginEvent event) {
+        // if persisting presence is enabled
         if (this.instance.getConfig().getBoolean("enable-persisting-presence")) {
             final ProxiedPlayer p = event.getPlayer();
+            // and this player is still toggled
             if (PlayerManager.playerExists(p.getUniqueId())) {
+                // let them know they're still toggled
                 this.instance.getProxy().getScheduler().schedule(this.instance, new Runnable() {
                     @Override
                     public void run() {
@@ -58,8 +70,13 @@ public class PlayerListener implements Listener {
 
     @EventHandler
     public void onPlayerLogout(PlayerDisconnectEvent event) {
+        // if persisting presence is not enabled
         if (!this.instance.getConfig().getBoolean("enable-persisting-presence")) {
-            PlayerManager.removePlayer(event.getPlayer());
+            // and this player is toggled
+            if (PlayerManager.playerExists(event.getPlayer())) {
+                // remove them from the toggle list
+                PlayerManager.removePlayer(event.getPlayer());
+            }
         }
     }
 }

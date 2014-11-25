@@ -9,7 +9,6 @@ import net.md_5.bungee.config.Configuration;
 import net.md_5.bungee.config.ConfigurationProvider;
 import net.md_5.bungee.config.YamlConfiguration;
 
-import javax.xml.soap.Text;
 import java.io.File;
 import java.io.IOException;
 
@@ -48,8 +47,10 @@ public class Methods {
         this.instance.setLanguage(null);
 
         try {
-            this.instance.setConfig(ConfigurationProvider.getProvider(YamlConfiguration.class).load(new File(this.instance.getDataFolder(), "conf.yml")));
-            this.instance.setLanguage(ConfigurationProvider.getProvider(YamlConfiguration.class).load(new File(this.instance.getDataFolder(), "lang.yml")));
+            this.instance.setConfig(ConfigurationProvider.getProvider(YamlConfiguration.class).load(
+                    new File(this.instance.getDataFolder(), "conf.yml")));
+            this.instance.setLanguage(ConfigurationProvider.getProvider(YamlConfiguration.class).load(
+                    new File(this.instance.getDataFolder(), "lang.yml")));
         } catch (IOException ex) {
             this.instance.setConfig(config_lock);
             this.instance.setLanguage(lang_lock);

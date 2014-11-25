@@ -14,9 +14,6 @@ public class PlayerManager {
     public static void addPlayer(ProxiedPlayer player) {
         addPlayer(player.getUniqueId());
     }
-    public static void addPlayer(String uuid) {
-        addPlayer(UUID.fromString(uuid));
-    }
     public static void addPlayer(UUID uuid) {
         if (! players.contains(uuid)) players.add(uuid);
     }
@@ -24,18 +21,12 @@ public class PlayerManager {
     public static void removePlayer(ProxiedPlayer player) {
         removePlayer(player.getUniqueId());
     }
-    public static void removePlayer(String uuid) {
-        removePlayer(UUID.fromString(uuid));
-    }
     public static void removePlayer(UUID uuid) {
         if (players.contains(uuid)) players.remove(uuid);
     }
 
     public static boolean playerExists(ProxiedPlayer player) {
         return playerExists(player.getUniqueId());
-    }
-    public static boolean playerExists(String uuid) {
-        return playerExists(UUID.fromString(uuid));
     }
     public static boolean playerExists(UUID uuid) {
         return (players.contains(uuid));
