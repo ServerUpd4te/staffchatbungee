@@ -1,6 +1,7 @@
 package com.majornoob.staffchat.commands;
 
 import com.majornoob.staffchat.Main;
+import com.majornoob.staffchat.managers.ConfigurationManager;
 import com.majornoob.staffchat.managers.PlayerManager;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
@@ -14,9 +15,9 @@ public class MainCommand extends Command {
 
     public MainCommand(Main instance) {
         super(
-                instance.getConfig().getString("main-command"),
+                ConfigurationManager.getConf().getString("main-command"),
                 null,
-                instance.getConfig().getStringList("aliases").toArray(new String[0]) //TODO: Change for performance
+                ConfigurationManager.getConf().getStringList("aliases").toArray(new String[0])
         );
         this.instance = instance;
     }
@@ -28,33 +29,33 @@ public class MainCommand extends Command {
 
         // Multiple senders allowed
         if (args.length > 0 && args[0].equalsIgnoreCase("reload")) {
-            this.instance.getMethods().runReload(sender);
+            this.instance.getMisc().reloadPlugin(sender);
             return;
         }
 
         // Player only
         if (!senderIsPlayer) {
-            this.instance.getMethods().sendLM(sender, "plugin-player-only");
+            this.instance.getMisc().sendLM(sender, "plugin-player-only", false);
         }
         else if (args.length == 0) {
             if (sender.hasPermission("staffchat.toggle")) {
                 if (!PlayerManager.playerExists(p)) {
                     PlayerManager.addPlayer(p);
-                    this.instance.getMethods().sendLM(sender, "user-entered-chat");
+                    this.instance.getMisc().sendLM(sender, "user-entered-chat", false);
                 } else {
                     PlayerManager.removePlayer(p);
-                    this.instance.getMethods().sendLM(sender, "user-left-chat");
+                    this.instance.getMisc().sendLM(sender, "user-left-chat", false);
                 }
-            } else this.instance.getMethods().sendStrippedLM(sender, "plugin-doesnt-exist");
+            } else this.instance.getMisc().sendLM(sender, "plugin-doesnt-exist", true);
         }
         else if (args.length > 0) {
             if (sender.hasPermission("staffchat.send")) {
                 for (ProxiedPlayer player : this.instance.getProxy().getPlayers()) {
                     if (player.hasPermission("staffchat.receive")) {
-                        this.instance.getMethods().sendMessage(player, p, args);
+                        this.instance.getMisc().sendMessage(player, p, args);
                     }
                 }
-            } else this.instance.getMethods().sendStrippedLM(sender, "plugin-doesnt-exist");
+            } else this.instance.getMisc().sendLM(sender, "plugin-doesnt-exist", true);
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.majornoob.staffchat.listeners;
 
 import com.majornoob.staffchat.Main;
+import com.majornoob.staffchat.managers.ConfigurationManager;
 import com.majornoob.staffchat.managers.PlayerManager;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.event.*;
@@ -32,7 +33,7 @@ public class PlayerListener implements Listener {
         // and the player is toggled or simply trying to send a message with "!"
         if (!PlayerManager.playerExists(sender) && !trueMessage.startsWith("!")) return;
         else if (trueMessage.startsWith("!")) {
-            if (this.instance.getConfig().getBoolean("enable-exclamation-trigger")) {
+            if (ConfigurationManager.getConf().getBoolean("enable-exclamation-trigger")) {
                 if (!(trueMessage.length() > 1)) return;
                 trueMessage = trueMessage.substring(1, trueMessage.length());
             } else return;
@@ -46,14 +47,14 @@ public class PlayerListener implements Listener {
             // if they have the receive permission
             if (!receiver.hasPermission("staffchat.receive")) continue;
             // send a message
-            this.instance.getMethods().sendMessage(receiver, sender, trueMessage);
+            this.instance.getMisc().sendMessage(receiver, sender, trueMessage.split(" "));
         }
     }
 
     @EventHandler
     public void onPlayerLogin(PostLoginEvent event) {
         // if persisting presence is enabled
-        if (this.instance.getConfig().getBoolean("enable-persisting-presence")) {
+        if (ConfigurationManager.getConf().getBoolean("enable-persisting-presence")) {
             final ProxiedPlayer p = event.getPlayer();
             // and this player is still toggled
             if (PlayerManager.playerExists(p.getUniqueId())) {
@@ -61,7 +62,7 @@ public class PlayerListener implements Listener {
                 this.instance.getProxy().getScheduler().schedule(this.instance, new Runnable() {
                     @Override
                     public void run() {
-                        instance.getMethods().sendLM(p, "user-logged-in-chat");
+                        instance.getMisc().sendLM(p, "user-logged-in-chat", true);
                     }
                 }, 500L, TimeUnit.MILLISECONDS);
             }
@@ -71,7 +72,7 @@ public class PlayerListener implements Listener {
     @EventHandler
     public void onPlayerLogout(PlayerDisconnectEvent event) {
         // if persisting presence is not enabled
-        if (!this.instance.getConfig().getBoolean("enable-persisting-presence")) {
+        if (!ConfigurationManager.getConf().getBoolean("enable-persisting-presence")) {
             // and this player is toggled
             if (PlayerManager.playerExists(event.getPlayer())) {
                 // remove them from the toggle list
