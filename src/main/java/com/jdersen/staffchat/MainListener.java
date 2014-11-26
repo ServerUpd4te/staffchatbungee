@@ -21,9 +21,7 @@ public class MainListener implements Listener {
         ProxiedPlayer sender;
         String trueMessage = event.getMessage();
         // If the message is not a command
-        if (trueMessage.startsWith("/")) {
-            return;
-        }
+        if (trueMessage.startsWith("/")) return;
         // and the sender is a ProxiedPlayer (player)
         if (!(event.getSender() instanceof ProxiedPlayer)) return;
         else sender = (ProxiedPlayer) event.getSender();
