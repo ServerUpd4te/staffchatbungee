@@ -59,7 +59,7 @@ public class MainListener implements Listener {
                 this.instance.getProxy().getScheduler().schedule(this.instance, new Runnable() {
                     @Override
                     public void run() {
-                        instance.getMisc().sendLM(p, "user-logged-in-chat", true);
+                        instance.getMisc().sendLM(p, "user-logged-in-chat", false);
                     }
                 }, 500L, TimeUnit.MILLISECONDS);
             }
