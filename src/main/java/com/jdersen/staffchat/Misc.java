@@ -28,7 +28,7 @@ public class Misc {
                 .replace("%server", sender.getServer().getInfo().getName())
                 .replace("%user", sender.getName())
                 .replace("%message", message);
-        to.sendMessage(new TextComponent(ChatColor.translateAlternateColorCodes('&', message)));
+        to.sendMessage(TextComponent.fromLegacyText(ChatColor.translateAlternateColorCodes('&', message)));
     }
 
     public void sendLM(CommandSender cs, String s, boolean strip) {
