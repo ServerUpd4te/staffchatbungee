@@ -9,12 +9,14 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.regex.Pattern;
 
 /**
  * Created by Jake on 3/9/14.
  */
 public class Misc {
     private static Main instance;
+    private static Pattern colorCodeMatcher = Pattern.compile("&[0-9a-fklmnor]");
 
     public Misc(Main instance) {
         Misc.instance = instance;
@@ -24,6 +26,7 @@ public class Misc {
         String message = "";
         for (String part : parts) message += part + " ";
         message = message.substring(0, (message.length() - 1));
+        if (! sender.hasPermission("staffchat.colormessage")) message = colorCodeMatcher.matcher(message).replaceAll("");
         message = ConfigManager.getConf().getString("format")
                 .replace("%server", sender.getServer().getInfo().getName())
                 .replace("%user", sender.getName())
