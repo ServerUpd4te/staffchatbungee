@@ -28,6 +28,7 @@ public class Main extends Plugin {
         ConfigManager.loadIntoMemory(getDataFolder());
 
         getProxy().getPluginManager().registerCommand(this, new MainCommand(this));
+        getProxy().getPluginManager().registerCommand(this, new ReloadCommand(this));
         getProxy().getPluginManager().registerListener(this, new MainListener(this));
 
         misc = new Misc(this);

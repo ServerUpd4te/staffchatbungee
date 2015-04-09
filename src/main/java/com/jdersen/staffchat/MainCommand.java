@@ -14,21 +14,18 @@ public class MainCommand extends Command {
         super(
                 ConfigManager.getConf().getString("main-command"),
                 null,
-                ConfigManager.getConf().getStringList("aliases").toArray(new String[0])
+                ConfigManager.getConf().getStringList("aliases").toArray(
+                        new String[ConfigManager.getConf().getStringList("aliases").size()]
+                )
         );
         this.instance = instance;
     }
 
+    @Override
     public void execute(CommandSender sender, String[] args) {
         boolean senderIsPlayer = false;
         if ((sender instanceof ProxiedPlayer)) senderIsPlayer = true;
         ProxiedPlayer p = ((senderIsPlayer) ? ((ProxiedPlayer)sender) : null);
-
-        // Multiple senders allowed
-        if (args.length > 0 && args[0].equalsIgnoreCase("reload")) {
-            this.instance.getMisc().reloadPlugin(sender);
-            return;
-        }
 
         // Player only
         if (!senderIsPlayer) {
