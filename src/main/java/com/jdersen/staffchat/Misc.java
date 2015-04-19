@@ -43,6 +43,7 @@ public class Misc {
         ConfigManager.loadIntoMemory(instance.getDataFolder());
         instance.getProxy().getPluginManager().unregisterCommands(instance);
         instance.getProxy().getPluginManager().registerCommand(instance, new MainCommand(instance));
+        instance.getProxy().getPluginManager().registerCommand(instance, new ReloadCommand(instance));
         this.sendLM(sender, "plugin-reloaded-msg", false);
     }
 
