@@ -7,7 +7,7 @@ public class ReloadCommand extends Command {
     private Main instance;
 
     public ReloadCommand(Main instance) {
-        super("screload", "staffchat.admin", "");
+        super("screload", null, new String[0]);
         this.instance = instance;
     }
 
@@ -15,6 +15,8 @@ public class ReloadCommand extends Command {
     public void execute(CommandSender sender, String[] args) {
         if (sender.hasPermission("staffchat.admin")) {
             this.instance.getMisc().reloadPlugin(sender);
+        } else {
+            this.instance.getMisc().sendLMNoPrefix(sender, "plugin-doesnt-exist", true);
         }
     }
 }

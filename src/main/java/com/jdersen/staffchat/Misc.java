@@ -16,26 +16,31 @@ import java.util.regex.Pattern;
  */
 public class Misc {
     private static Main instance;
-    private static Pattern colorCodeMatcher = Pattern.compile("&[0-9a-fklmnor]");
 
     public Misc(Main instance) {
         Misc.instance = instance;
     }
 
     public void sendMessage(ProxiedPlayer to, ProxiedPlayer sender, String[] parts) {
+        String format = ChatColor.translateAlternateColorCodes('&', ConfigManager.getConf().getString("format"));
         String message = "";
         for (String part : parts) message += part + " ";
         message = message.substring(0, (message.length() - 1));
-        if (! sender.hasPermission("staffchat.colormessage")) message = colorCodeMatcher.matcher(message).replaceAll("");
-        message = ConfigManager.getConf().getString("format")
-                .replace("%server", sender.getServer().getInfo().getName())
-                .replace("%user", sender.getName())
-                .replace("%message", message);
-        to.sendMessage(TextComponent.fromLegacyText(ChatColor.translateAlternateColorCodes('&', message)));
+        message = format
+            .replace("%server", sender.getServer().getInfo().getName())
+            .replace("%user", sender.getName())
+            .replace("%message", (sender.hasPermission("staffchat.colormessage") ? ChatColor.translateAlternateColorCodes('&', message) : message))
+        ;
+        to.sendMessage(TextComponent.fromLegacyText(message));
     }
 
     public void sendLM(CommandSender cs, String s, boolean strip) {
         s = ConfigManager.getLang().getString("prefix") + " " + ConfigManager.getLang().getString(s);
+        cs.sendMessage(TextComponent.fromLegacyText((strip)?s:ChatColor.translateAlternateColorCodes('&', s)));
+    }
+
+    public void sendLMNoPrefix(CommandSender cs, String s, boolean strip) {
+        s = ConfigManager.getLang().getString(s);
         cs.sendMessage(TextComponent.fromLegacyText((strip)?s:ChatColor.translateAlternateColorCodes('&', s)));
     }
 

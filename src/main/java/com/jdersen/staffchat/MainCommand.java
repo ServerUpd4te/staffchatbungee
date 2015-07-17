@@ -40,7 +40,7 @@ public class MainCommand extends Command {
                     PlayerManager.removePlayer(p);
                     this.instance.getMisc().sendLM(sender, "user-left-chat", false);
                 }
-            } else this.instance.getMisc().sendLM(sender, "plugin-doesnt-exist", true);
+            } else this.instance.getMisc().sendLMNoPrefix(sender, "plugin-doesnt-exist", true);
         }
         else if (args.length > 0) {
             if (sender.hasPermission("staffchat.send")) {
@@ -49,7 +49,7 @@ public class MainCommand extends Command {
                         this.instance.getMisc().sendMessage(player, p, args);
                     }
                 }
-            } else this.instance.getMisc().sendLM(sender, "plugin-doesnt-exist", true);
+            } else this.instance.getMisc().sendLMNoPrefix(sender, "plugin-doesnt-exist", true);
         }
     }
 }
